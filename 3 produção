@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feitos a Amor — Produção</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1C8DE0;--blue-deep:#0B5FA8;--blue-ink:#0A3A66;
+  --blue-soft:#E9F3FC;--blue-line:rgba(11,95,168,0.14);
+  --white:#FFFFFF;--ink:#14253A;--ink-soft:#5C7B91;
+  --green:#2E9E5B;--red:#D9534F;--orange:#C97A2B;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--blue-soft);font-family:'Work Sans',sans-serif;min-height:100vh;}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--blue-soft);display:flex;flex-direction:column;}
+
+header{padding:22px 20px 20px;background:linear-gradient(160deg,var(--blue-deep) 0%,var(--blue) 100%);color:#fff;border-radius:0 0 28px 28px;position:relative;overflow:hidden;flex-shrink:0;}
+.hd{position:absolute;right:-18px;top:-10px;width:120px;height:120px;opacity:.16;}
+.brand-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative;z-index:1;}
+.brand-name{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;}
+h1{font-family:'Anton',sans-serif;font-size:28px;text-transform:uppercase;line-height:1;position:relative;z-index:1;}
+.subhead{margin-top:5px;font-size:13px;color:rgba(255,255,255,.78);position:relative;z-index:1;}
+.back-btn{display:none;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.15);align-items:center;justify-content:center;cursor:pointer;margin-right:6px;border:none;}
+.back-btn.show{display:flex;}
+
+.tabs{display:flex;background:var(--white);border-bottom:1px solid var(--blue-line);overflow-x:auto;scrollbar-width:none;flex-shrink:0;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex:1;min-width:75px;padding:12px 6px;text-align:center;font-size:11px;font-weight:600;color:var(--ink-soft);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
+.tab.active{color:var(--blue-deep);border-bottom-color:var(--blue);}
+.tab-icon{font-size:15px;display:block;margin-bottom:3px;}
+
+.screen{display:none;flex:1;flex-direction:column;}
+.screen.active{display:flex;}
+.sub-screen{display:none;}
+.sub-screen.active{display:block;}
+
+.cat-bar{display:flex;gap:6px;overflow-x:auto;padding:10px 20px 0;scrollbar-width:none;flex-shrink:0;}
+.cat-bar::-webkit-scrollbar{display:none;}
+.cat-btn{flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11.5px;font-weight:600;cursor:pointer;border:1px solid var(--blue-line);background:var(--white);color:var(--ink-soft);white-space:nowrap;}
+.cat-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+
+.content{padding:14px 20px 100px;flex:1;overflow-y:auto;}
+.section-title{font-family:'Anton',sans-serif;font-size:13px;text-transform:uppercase;color:var(--blue-deep);letter-spacing:.03em;margin:12px 0 8px;}
+
+.card{background:var(--white);border:1px solid var(--blue-line);border-radius:14px;padding:13px 14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;}
+.card-icon{width:38px;height:38px;border-radius:10px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.card-info{flex:1;min-width:0;}
+.card-name{font-weight:700;font-size:14px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+.card-price{font-family:'DM Mono',monospace;font-size:13px;color:var(--blue-deep);flex-shrink:0;margin-right:6px;}
+.card-actions{display:flex;gap:6px;flex-shrink:0;}
+.ibt{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;font-size:13px;background:var(--blue-soft);}
+.ibt.del{background:#FEF2F2;}
+
+.tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--blue-soft);color:var(--blue-deep);}
+.tag.green{background:#D1FAE5;color:#065F46;}
+.tag.orange{background:#FEF3C7;color:#92400E;}
+
+/* RECEITA */
+.ingr-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--blue-line);}
+.ingr-row:last-child{border-bottom:none;}
+.ingr-nome{font-size:13px;font-weight:600;color:var(--ink);}
+.ingr-right{text-align:right;}
+.ingr-qty{font-family:'DM Mono',monospace;font-size:13px;color:var(--blue-deep);}
+.ingr-pct{font-size:10.5px;color:var(--ink-soft);}
+
+/* CUSTO BOX */
+.custo-box{background:var(--white);border:1px solid var(--blue-line);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;}
+.custo-nome{font-family:'Anton',sans-serif;font-size:15px;text-transform:uppercase;color:var(--ink);}
+.custo-sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+.custo-line{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;color:var(--ink-soft);}
+.custo-line .v{font-family:'DM Mono',monospace;color:var(--ink);}
+.custo-total{display:flex;justify-content:space-between;font-size:15px;font-weight:700;color:var(--blue-deep);margin-top:8px;padding-top:8px;border-top:1px dashed var(--blue-line);}
+.custo-total .v{font-family:'DM Mono',monospace;}
+
+/* LOTE */
+.lote-card{background:var(--white);border:1px solid var(--blue-line);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;}
+.lote-num{font-family:'Anton',sans-serif;font-size:15px;text-transform:uppercase;color:var(--ink);}
+.lote-meta{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+.prod-item{background:var(--white);border:1px solid var(--blue-line);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer;}
+.prod-item-name{font-weight:700;font-size:14px;color:var(--ink);}
+.prod-item-qty{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+.prog-bar{height:5px;background:var(--blue-line);border-radius:3px;overflow:hidden;margin-top:6px;}
+.prog-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s;}
+
+/* CHECK */
+.check-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--blue-line);}
+.check-row:last-child{border-bottom:none;}
+.check-row input[type=checkbox]{width:20px;height:20px;accent-color:var(--blue);flex-shrink:0;cursor:pointer;}
+.check-row.done label .c-nome{text-decoration:line-through;color:var(--ink-soft);}
+.c-nome{font-size:13.5px;font-weight:600;color:var(--ink);}
+.c-qty{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+/* FAB */
+.fab{position:fixed;bottom:86px;right:calc(50% - 240px + 20px);width:54px;height:54px;border-radius:16px;background:var(--blue);box-shadow:0 10px 24px rgba(28,141,224,.45);display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;z-index:5;}
+@media(max-width:480px){.fab{right:20px;}}
+
+nav{position:sticky;bottom:0;background:var(--blue-ink);display:flex;padding:10px 8px calc(10px + env(safe-area-inset-bottom));z-index:4;flex-shrink:0;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 0;color:rgba(255,255,255,.55);cursor:pointer;border:none;background:none;}
+.nav-item.active{color:#fff;}
+.nav-item svg{width:19px;height:19px;}
+.nav-item span{font-size:9.5px;font-weight:600;white-space:nowrap;}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(10,58,102,.45);display:none;align-items:flex-end;justify-content:center;z-index:30;}
+.overlay.show{display:flex;}
+.sheet{width:100%;max-width:480px;background:var(--blue-soft);border-radius:24px 24px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom));max-height:90vh;overflow-y:auto;}
+.mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.mtitle{font-family:'Anton',sans-serif;font-size:18px;text-transform:uppercase;color:var(--ink);}
+.mclose{width:30px;height:30px;border-radius:9px;background:var(--white);border:1px solid var(--blue-line);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink-soft);font-size:17px;}
+.mfield{margin-bottom:14px;}
+.mfield label{display:block;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--blue-deep);margin-bottom:6px;}
+.mbox{background:var(--white);border:1px solid var(--blue-line);border-radius:14px;padding:12px 14px;}
+.mbox input,.mbox select{border:none;outline:none;background:transparent;font-size:15px;color:var(--ink);width:100%;font-family:'Work Sans',sans-serif;}
+.mactions{display:flex;gap:10px;margin-top:16px;}
+.btn{flex:1;padding:14px;border-radius:14px;font-weight:700;font-size:14px;cursor:pointer;border:none;text-align:center;}
+.btn-c{background:var(--white);color:var(--ink-soft);border:1px solid var(--blue-line);}
+.btn-s{background:var(--blue);color:#fff;}
+.btn-g{background:var(--green);color:#fff;}
+.btn-r{background:var(--red);color:#fff;}
+
+/* INGR NO MODAL */
+.ingr-edit{background:var(--white);border:1px solid var(--blue-line);border-radius:12px;padding:12px 14px;margin-bottom:8px;}
+.ingr-edit-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.total-bar{background:var(--white);border:1px solid var(--blue-line);border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+
+/* CHOICE */
+.choice-card{background:var(--white);border:1px solid var(--blue-line);border-radius:16px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;}
+.choice-icon{font-size:26px;}
+.choice-title{font-family:'Anton',sans-serif;font-size:15px;text-transform:uppercase;color:var(--ink);}
+.choice-sub{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+/* RESULT BOX */
+.result-box{background:var(--white);border:1px solid var(--blue-line);border-radius:12px;padding:12px 14px;margin-bottom:8px;}
+.result-line{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;}
+.result-line span{color:var(--ink-soft);}
+.result-line .rv{font-family:'DM Mono',monospace;color:var(--ink);}
+.result-sep{border-top:1px dashed var(--blue-line);margin:8px 0;}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--blue-ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:13px;font-weight:600;opacity:0;transition:all .25s;z-index:100;pointer-events:none;white-space:nowrap;}
+
+.pbar{height:6px;background:var(--blue-line);border-radius:3px;overflow:hidden;margin:8px 0 2px;}
+.pbar-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s;}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <svg class="hd" viewBox="0 0 100 100" fill="none"><path d="M50 20C40 8 20 10 14 26C8 42 22 56 50 80C78 56 92 42 86 26C80 10 60 8 50 20Z" fill="#FFF"/></svg>
+    <div class="brand-row" style="justify-content:space-between;">
+
+      <button class="back-btn" id="backBtn" onclick="goBack()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <svg width="26" height="24" viewBox="0 0 100 92" fill="none"><path d="M62 8C50 8 41 16 38 26C35 16 24 9 13 12C0 16 -3 32 6 45C15 58 32 70 38 80C44 70 61 58 70 45C79 32 76 16 63 12Z" fill="#FFF"/></svg>
+      <span class="brand-name">Feitos a Amor</span>
+      <a href="index.html" style="margin-left:auto;color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;background:rgba(255,255,255,.15);padding:6px 12px;border-radius:999px;">⌂ Início</a>
+    </div>
+    <h1 id="hTitle">Produção</h1>
+    <div class="subhead" id="hSub">Gestão de receitas e lotes</div>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="insumos" onclick="goTab('insumos')"><span class="tab-icon">🧪</span>Insumos</div>
+    <div class="tab" data-tab="receitas" onclick="goTab('receitas')"><span class="tab-icon">📋</span>Receitas</div>
+    <div class="tab" data-tab="custo" onclick="goTab('custo')"><span class="tab-icon">💰</span>Custos</div>
+    <div class="tab" data-tab="producao" onclick="goTab('producao')"><span class="tab-icon">🏭</span>Produção</div>
+  </div>
+
+  <!-- INSUMOS -->
+  <section class="screen active" id="screen-insumos">
+    <div class="cat-bar" id="catBar">
+      <button class="cat-btn active" onclick="filterCat('todos')">Todos</button>
+      <button class="cat-btn" onclick="filterCat('oleo-vegetal')">🫙 Óleo Vegetal</button>
+      <button class="cat-btn" onclick="filterCat('manteiga')">🧫 Manteiga Vegetal</button>
+      <button class="cat-btn" onclick="filterCat('po')">🧂 Pós</button>
+      <button class="cat-btn" onclick="filterCat('solido')">🧱 Sólidos</button>
+      <button class="cat-btn" onclick="filterCat('liquido')">💧 Líquidos</button>
+      <button class="cat-btn" onclick="filterCat('erva')">🌿 Ervas</button>
+      <button class="cat-btn" onclick="filterCat('base')">🧪 Base Sabonete</button>
+      <button class="cat-btn" onclick="filterCat('oleo-essencial')">✨ Óleos Essenciais</button>
+      <button class="cat-btn" onclick="filterCat('embalagem')">📦 Embalagens</button>
+      <button class="cat-btn" onclick="filterCat('papel')">🗒️ Papéis</button>
+    </div>
+    <div class="content"><div id="listInsumos"></div></div>
+    <button class="fab" onclick="openAddInsumo()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+  </section>
+
+  <!-- RECEITAS -->
+  <section class="screen" id="screen-receitas">
+    <div class="cat-bar" id="catBarReceitas">
+      <button class="cat-btn active" onclick="filterCatReceita('todas',this)">Todas</button>
+      <button class="cat-btn" onclick="filterCatReceita('cabelos',this)">💧 Cabelos</button>
+      <button class="cat-btn" onclick="filterCatReceita('bucal',this)">🦷 Bucal</button>
+      <button class="cat-btn" onclick="filterCatReceita('rosto',this)">🌸 Rosto</button>
+      <button class="cat-btn" onclick="filterCatReceita('barba',this)">🧔 Barba</button>
+      <button class="cat-btn" onclick="filterCatReceita('corpo',this)">🧴 Corpo</button>
+      <button class="cat-btn" onclick="filterCatReceita('tatuagem',this)">🖋️ Tatuagem</button>
+      <button class="cat-btn" onclick="filterCatReceita('pes',this)">🦶 Pés</button>
+      <button class="cat-btn" onclick="filterCatReceita('ambiente',this)">🏠 Ambiente</button>
+      <button class="cat-btn" onclick="filterCatReceita('testes',this)">🧪 Testes</button>
+    </div>
+    <div class="content"><div id="listReceitas"></div></div>
+  </section>
+
+  <!-- CUSTO -->
+  <section class="screen" id="screen-custo">
+    <div class="content"><div id="listCustos"></div></div>
+    <button class="fab" onclick="openAddCusto()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+  </section>
+
+  <!-- PRODUÇÃO -->
+  <section class="screen" id="screen-producao">
+    <div class="sub-screen active" id="sub-lotes">
+      <div class="content"><div id="listLotes"></div></div>
+      <button class="fab" onclick="openAddLote()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+    <div class="sub-screen" id="sub-detalhe">
+      <div class="content"><div id="loteInfo" style="background:var(--white);border:1px solid var(--blue-line);border-radius:14px;padding:12px 14px;margin-bottom:14px;"></div><div class="section-title">Produtos do lote</div><div id="listProdLote"></div></div>
+      <button class="fab" onclick="openAddProdLote()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<!-- ========== MODAIS ========== -->
+
+<!-- Add/Edit Insumo -->
+<div class="overlay" id="ov-insumo">
+  <div class="sheet">
+    <div class="mhead"><div class="mtitle" id="insumoTitle">Novo Insumo</div><div class="mclose" onclick="closeOv('insumo')">×</div></div>
+    <input type="hidden" id="insumoId">
+    <div class="mfield"><label>Nome</label><div class="mbox"><input id="insumoNome" placeholder="Ex: Óleo de Rícino"></div></div>
+    <div class="mfield"><label>Subcategoria</label><div class="mbox"><select id="insumoCat">
+      <option value="">Selecione...</option>
+      <option value="oleo-vegetal">🫙 Óleo Vegetal</option>
+      <option value="manteiga">🧫 Manteiga Vegetal</option>
+      <option value="po">🧂 Pós</option>
+      <option value="solido">🧱 Sólidos</option>
+      <option value="liquido">💧 Líquidos</option>
+      <option value="erva">🌿 Ervas</option>
+      <option value="base">🧪 Base Sabonete</option>
+      <option value="oleo-essencial">✨ Óleos Essenciais</option>
+      <option value="embalagem">📦 Embalagens</option>
+      <option value="papel">🗒️ Papéis</option>
+    </select></div></div>
+    <div class="mfield"><label>Origem</label><div class="mbox"><select id="insumoOrigem">
+      <option value="">Selecione...</option>
+      <option value="local">🏪 Local</option>
+      <option value="internet">🌐 Internet</option>
+    </select></div></div>
+    <div class="mfield"><label>Unidade de Medida</label><div class="mbox"><select id="insumoUnidade">
+      <option>g</option><option>kg</option><option>ml</option><option>L</option><option>gotas</option><option>Un</option>
+    </select></div></div>
+    <div class="mfield"><label>Quantidade do pacote</label><div class="mbox"><input type="number" id="insumoQtd" step="0.001" placeholder="Ex: 500"></div></div>
+    <div class="mfield"><label>Preço do pacote (R$)</label><div class="mbox"><input type="number" id="insumoPreco" step="0.01" placeholder="0,00"></div></div>
+    <div class="mactions">
+      <button class="btn btn-c" onclick="closeOv('insumo')">Cancelar</button>
+      <button class="btn btn-s" onclick="saveInsumo()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Receita -->
+<div class="overlay" id="ov-receita">
+  <div class="sheet">
+    <div class="mhead"><div class="mtitle" id="receitaTitle">Nova Receita</div><div class="mclose" onclick="closeOv('receita')">×</div></div>
+    <input type="hidden" id="receitaId">
+    <div class="mfield"><label>Produto</label><div class="mbox"><select id="receitaProduto" onchange="updateReceitaTitle()"><option value="">Selecione...</option></select></div></div>
+    <div class="mfield"><label>Categoria</label><div class="mbox"><select id="receitaCat">
+      <option value="">Selecione...</option>
+      <option value="cabelos">💧 Cabelos</option>
+      <option value="bucal">🦷 Bucal</option>
+      <option value="rosto">🌸 Rosto</option>
+      <option value="barba">🧔 Barba</option>
+      <option value="corpo">🧴 Corpo</option>
+      <option value="tatuagem">🖋️ Tatuagem</option>
+      <option value="pes">🦶 Pés</option>
+      <option value="ambiente">🏠 Ambiente</option>
+      <option value="testes">🧪 Testes</option>
+    </select></div></div>
+    <div class="total-bar">
+      <span style="font-size:13px;color:var(--ink-soft);">Total da receita</span>
+      <span id="totalReceita" style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--green);">0g · 0%</span>
+    </div>
+    <div id="ingrList"></div>
+    <div class="mfield"><label>Adicionar Ingrediente</label></div>
+    <button onclick="openAddIngr()" style="width:100%;background:var(--blue-soft);border:1px dashed var(--blue);border-radius:12px;padding:11px;font-size:13.5px;font-weight:600;color:var(--blue-deep);cursor:pointer;margin-bottom:12px;">+ Adicionar Ingredi
